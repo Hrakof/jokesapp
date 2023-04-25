@@ -1,4 +1,4 @@
-package com.example.jokesapp.persistence
+package com.example.jokesapp.data.persistence
 
 import androidx.room.Entity
 

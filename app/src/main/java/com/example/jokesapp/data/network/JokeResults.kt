@@ -1,4 +1,4 @@
-package com.example.jokesapp.network
+package com.example.jokesapp.data.network
 
 class CategoryResponse {}
 
