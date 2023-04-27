@@ -7,13 +7,14 @@ import com.example.jokesapp.data.persistence.JokesDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
 object PersistenceModule {
     @Provides
-    fun provideDatabase(context: Context): JokesDatabase {
+    fun provideDatabase(@ApplicationContext context: Context): JokesDatabase {
         return Room.databaseBuilder(context, JokesDatabase::class.java, "jokes_database")
             .fallbackToDestructiveMigration()
             .build()

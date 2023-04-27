@@ -1,4 +1,5 @@
 package com.example.jokesapp.data.repository
 
-class Joke {
-}
+data class Joke(
+    val text: String,
+)

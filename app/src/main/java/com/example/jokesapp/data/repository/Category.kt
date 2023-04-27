@@ -1,4 +1,5 @@
 package com.example.jokesapp.data.repository
 
-class Category {
-}
+data class Category(
+    val name: String,
+)
