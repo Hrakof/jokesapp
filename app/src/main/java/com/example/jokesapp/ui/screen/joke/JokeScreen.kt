@@ -2,15 +2,12 @@ package com.example.jokesapp.ui.screen.joke
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Scaffold
-import androidx.compose.material.*
-import androidx.compose.runtime.*
+import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
-import kotlinx.coroutines.launch
 
 
 @Composable
@@ -28,7 +25,7 @@ fun JokeScreen(
         },
         content = { paddingValues ->
             Box(modifier = modifier.padding(paddingValues)) {
-                Text("Joke")
+                Text("A joke in the \"${viewModel.categoryName ?: ""}\" category: ${viewModel.getRandomJoke().text}")
             }
         }
     )

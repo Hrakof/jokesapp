@@ -1,11 +1,10 @@
 package com.example.jokesapp.ui.screen.categorylist
 
 import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.flow.Flow
 import com.example.jokesapp.data.repository.Category
 import com.example.jokesapp.data.repository.JokesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.emptyFlow
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 

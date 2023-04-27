@@ -29,8 +29,8 @@ fun JokesAppNavHost(
             arguments = listOf(
                 navArgument("categoryname"){type = NavType.StringType}
             )
-        ) {
-            val categoryName = it.arguments?.getString("categoryname")
+        ) { backStackEntry ->
+            val categoryName = backStackEntry.arguments?.getString("categoryname")
             categoryName?.let {
                 JokeScreen()
             }
