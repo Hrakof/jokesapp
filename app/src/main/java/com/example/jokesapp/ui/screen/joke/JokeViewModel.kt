@@ -13,6 +13,6 @@ class JokeViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
     var categoryName: String? = savedStateHandle.get<String>("categoryname").orEmpty()
-    fun getRandomJoke(): Joke = Joke("Test joke")
+    fun getRandomJoke(): Joke = Joke(null,"Test joke")
 
 }

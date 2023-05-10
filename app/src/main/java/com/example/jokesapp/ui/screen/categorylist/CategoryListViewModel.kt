@@ -15,9 +15,9 @@ class CategoryListViewModel @Inject constructor(
 
     fun getAllCategories(): Flow<List<Category>> = flow {
         val categoryList = listOf(
-            Category("test category 1"),
-            Category("test category 2"),
-            Category("test category 3"),
+            Category(0, "test category 1"),
+            Category(0, "test category 2"),
+            Category(0, "test category 3"),
         )
         emit(categoryList)
     }
