@@ -9,9 +9,14 @@ import com.example.jokesapp.data.persistence.RoomCategory
 import com.example.jokesapp.data.persistence.RoomJoke
 import java.util.*
 
-
-class JokesRepository(private val context: Context, private val jokesService: JokesService, private val jokesDao: JokesDao) {
-    suspend fun getAllCategories(): List<Category> {
+interface JokesRepository {
+    suspend fun getAllCategories(): List<Category>
+    suspend fun getRandomJokeFromCategory(categoryName: String): Joke?
+    fun insertCategory(category: Category)
+    fun insertJoke(joke: Joke, categoryName: String)
+}
+class JokesRepositoryImplementation(private val context: Context, private val jokesService: JokesService, private val jokesDao: JokesDao): JokesRepository {
+    override suspend fun getAllCategories(): List<Category> {
         if (isInternetAvailable()) {
             val result = jokesService.getCategories().body()?.map { categoryName ->
                 Category(0, categoryName)
@@ -23,7 +28,7 @@ class JokesRepository(private val context: Context, private val jokesService: Jo
             Category(roomCategory.id, roomCategory.name)
         }
     }
-    suspend fun getRandomJokeFromCategory(categoryName: String): Joke? {
+    override suspend fun getRandomJokeFromCategory(categoryName: String): Joke? {
         if (isInternetAvailable()) {
             val result = jokesService.getRandomJoke(categoryName).body()
             if (result != null)
@@ -33,11 +38,11 @@ class JokesRepository(private val context: Context, private val jokesService: Jo
         return Joke(roomJoke.id, roomJoke.text)
     }
 
-    fun insertCategory(category: Category){
+    override fun insertCategory(category: Category){
         jokesDao.insertCategory(RoomCategory(category.id, category.name))
     }
 
-    fun insertJoke(joke: Joke, categoryName: String){
+    override fun insertJoke(joke: Joke, categoryName: String){
         val id = joke.id ?: UUID.randomUUID().toString()
         jokesDao.insertJoke(RoomJoke(id, joke.text, categoryName))
     }
