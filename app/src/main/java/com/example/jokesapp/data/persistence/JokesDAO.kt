@@ -1,7 +1,6 @@
 package com.example.jokesapp.data.persistence
 
 import androidx.room.*
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface JokesDao {
@@ -11,6 +10,9 @@ interface JokesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertCategory(category: RoomCategory)
 
-    @Query("SELECT * FROM jokes where category = :categoryName ORDER BY RANDOM() LIMIT 1")
-    fun getRandomJokeFromCategory(categoryName: String): 
+    @Query("SELECT * FROM jokes where category_name = :categoryName ORDER BY RANDOM() LIMIT 1")
+    fun getRandomJokeFromCategory(categoryName: String): RoomJoke?
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertJoke(joke: RoomJoke)
 }
