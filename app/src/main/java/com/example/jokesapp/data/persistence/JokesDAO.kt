@@ -5,9 +5,12 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface JokesDao {
-    @Query("SELECT * FROM jokes")
-    fun getAllJokes(): Flow<List<RoomJoke>>
-
     @Query("SELECT * FROM categories")
-    fun getAllCategories(): Flow<List<RoomCategory>>
+    fun getAllCategories(): List<RoomCategory>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertCategory(category: RoomCategory)
+
+    @Query("SELECT * FROM jokes where category = :categoryName ORDER BY RANDOM() LIMIT 1")
+    fun getRandomJokeFromCategory(categoryName: String): 
 }
