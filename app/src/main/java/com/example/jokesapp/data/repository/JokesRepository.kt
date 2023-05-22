@@ -21,8 +21,12 @@ class JokesRepositoryImplementation(private val context: Context, private val jo
             val result = jokesService.getCategories().body()?.map { categoryName ->
                 Category(0, categoryName)
             }
-            if (result != null)
+            if (result != null){
+                result.forEach { category ->
+                    insertCategory(category)
+                }
                 return result
+            }
         }
         return jokesDao.getAllCategories().map { roomCategory ->
             Category(roomCategory.id, roomCategory.name)
