@@ -43,7 +43,7 @@ class MockJokesRepository: JokesRepository{
         TODO("Not yet implemented")
     }
 
-    override suspend fun getRandomJokeFromCategory(categoryName: String): Joke? {
+    override suspend fun getRandomJokeFromCategory(categoryName: String?): Joke? {
         TODO("Not yet implemented")
     }
 
