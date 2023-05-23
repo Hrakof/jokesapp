@@ -11,7 +11,7 @@ import java.util.*
 
 interface JokesRepository {
     suspend fun getAllCategories(): List<Category>
-    suspend fun getRandomJokeFromCategory(categoryName: String): Joke?
+    suspend fun getRandomJokeFromCategory(categoryName: String?): Joke?
     fun insertCategory(category: Category)
     fun insertJoke(joke: Joke, categoryName: String)
 }
@@ -32,11 +32,16 @@ class JokesRepositoryImplementation(private val context: Context, private val jo
             Category(roomCategory.id, roomCategory.name)
         }
     }
-    override suspend fun getRandomJokeFromCategory(categoryName: String): Joke? {
+    override suspend fun getRandomJokeFromCategory(categoryName: String?): Joke? {
+        if (categoryName == null)
+            return null
         if (isInternetAvailable()) {
             val result = jokesService.getRandomJoke(categoryName).body()
-            if (result != null)
-                return Joke(result.id, result.value)
+            if (result != null){
+                val joke = Joke(result.id, result.value)
+                insertJoke(joke, categoryName)
+                return joke
+            }
         }
         val roomJoke = jokesDao.getRandomJokeFromCategory(categoryName) ?: return null
         return Joke(roomJoke.id, roomJoke.text)
